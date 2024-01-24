@@ -192,6 +192,12 @@ class TableCalendar<T> extends StatefulWidget {
   /// Called whenever header gets tapped.
   final void Function(DateTime focusedDay)? onHeaderTapped;
 
+  //called when month header is called.
+  final void Function()? onMonthTapped;
+
+  //called when year header is called.
+  final void Function()? onYearTapped;
+
   /// Called whenever header gets long pressed.
   final void Function(DateTime focusedDay)? onHeaderLongPressed;
 
@@ -257,6 +263,8 @@ class TableCalendar<T> extends StatefulWidget {
     this.onDisabledDayLongPressed,
     this.onHeaderTapped,
     this.onHeaderLongPressed,
+    this.onMonthTapped,
+    this.onYearTapped,
     this.onPageChanged,
     this.onFormatChanged,
     this.onCalendarCreated,
@@ -461,6 +469,8 @@ class _TableCalendarState<T> extends State<TableCalendar<T>> {
                 onHeaderTap: () => widget.onHeaderTapped?.call(value),
                 onHeaderLongPress: () =>
                     widget.onHeaderLongPressed?.call(value),
+                onMonthTap: () => widget.onMonthTapped?.call(),
+                onYearTap: () => widget.onYearTapped?.call(),
                 headerStyle: widget.headerStyle,
                 availableCalendarFormats: widget.availableCalendarFormats,
                 calendarFormat: widget.calendarFormat,
@@ -544,7 +554,7 @@ class _TableCalendarState<T> extends State<TableCalendar<T>> {
                 dowCell = Center(
                   child: ExcludeSemantics(
                     child: Text(
-                      weekdayString,
+                      weekdayString.substring(0, widget.weekendDays.length),
                       style: isWeekend
                           ? widget.daysOfWeekStyle.weekendStyle
                           : widget.daysOfWeekStyle.weekdayStyle,

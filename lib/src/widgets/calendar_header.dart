@@ -1,6 +1,8 @@
 // Copyright 2019 Aleksander Woźniak
 // SPDX-License-Identifier: Apache-2.0
 
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 
@@ -21,6 +23,8 @@ class CalendarHeader extends StatelessWidget {
   final ValueChanged<CalendarFormat> onFormatButtonTap;
   final Map<CalendarFormat, String> availableCalendarFormats;
   final DayBuilder? headerTitleBuilder;
+  final VoidCallback? onMonthTap;
+  final VoidCallback? onYearTap;
 
   const CalendarHeader({
     Key? key,
@@ -35,6 +39,8 @@ class CalendarHeader extends StatelessWidget {
     required this.onFormatButtonTap,
     required this.availableCalendarFormats,
     this.headerTitleBuilder,
+    this.onMonthTap,
+    this.onYearTap,
   }) : super(key: key);
 
   @override
@@ -47,50 +53,129 @@ class CalendarHeader extends StatelessWidget {
       margin: headerStyle.headerMargin,
       padding: headerStyle.headerPadding,
       child: Row(
-        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        // mainAxisSize: MainAxisSize.max,
         children: [
           if (headerStyle.leftChevronVisible)
-            CustomIconButton(
-              icon: headerStyle.leftChevronIcon,
+            // CustomIconButton(
+            //   icon: headerStyle.leftChevronIcon,
+            //   onTap: onLeftChevronTap,
+            //   margin: headerStyle.leftChevronMargin,
+            //   padding: headerStyle.leftChevronPadding,
+            // ),
+            InkWell(
               onTap: onLeftChevronTap,
-              margin: headerStyle.leftChevronMargin,
-              padding: headerStyle.leftChevronPadding,
-            ),
-          Expanded(
-            child: headerTitleBuilder?.call(context, focusedMonth) ??
-                GestureDetector(
-                  onTap: onHeaderTap,
-                  onLongPress: onHeaderLongPress,
-                  child: Text(
-                    text,
-                    style: headerStyle.titleTextStyle,
-                    textAlign: headerStyle.titleCentered
-                        ? TextAlign.center
-                        : TextAlign.start,
+              child: Container(
+                  padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
+                  decoration: BoxDecoration(
+                    color: Color(0xffF4F5F5),
+                    borderRadius: BorderRadius.circular(6),
                   ),
-                ),
-          ),
-          if (headerStyle.formatButtonVisible &&
-              availableCalendarFormats.length > 1)
-            Padding(
-              padding: const EdgeInsets.only(left: 8.0),
-              child: FormatButton(
-                onTap: onFormatButtonTap,
-                availableCalendarFormats: availableCalendarFormats,
-                calendarFormat: calendarFormat,
-                decoration: headerStyle.formatButtonDecoration,
-                padding: headerStyle.formatButtonPadding,
-                textStyle: headerStyle.formatButtonTextStyle,
-                showsNextFormat: headerStyle.formatButtonShowsNext,
+                  // padding: const EdgeInsets.all(16),
+                  child: Text(
+                    String.fromCharCode(CupertinoIcons.chevron_back.codePoint),
+                    style: TextStyle(
+                      inherit: false,
+                      color: Colors.black,
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.w100,
+                      fontFamily: CupertinoIcons.chevron_back.fontFamily,
+                      package: CupertinoIcons.chevron_back.fontPackage,
+                    ),
+                  )),
+            ),
+          headerTitleBuilder?.call(context, focusedMonth) ??
+              Row(
+                children: [
+                  InkWell(
+                    onTap: onMonthTap,
+                    // onLongPress: onHeaderLongPress,
+                    child: Container(
+                      padding: EdgeInsets.fromLTRB(12, 10, 12, 10),
+                      decoration: BoxDecoration(
+                          color: Color(0xffF4F5F5),
+                          borderRadius: BorderRadius.circular(6)),
+                      child: Text(
+                        text.split(' ')[0],
+                        style: TextStyle(
+                            fontSize: 16,
+                            color: Color(0XFF252E3D),
+                            fontWeight: FontWeight.w600,
+                            height: 1),
+                        textAlign: headerStyle.titleCentered
+                            ? TextAlign.center
+                            : TextAlign.start,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 4,
+                  ),
+                  InkWell(
+                    onTap: onYearTap,
+                    // onLongPress: onHeaderLongPress,
+                    child: Container(
+                      padding: EdgeInsets.fromLTRB(12, 10, 12, 10),
+                      decoration: BoxDecoration(
+                          color: Color(0xffF4F5F5),
+                          borderRadius: BorderRadius.circular(6)),
+                      child: Text(
+                        text.split(' ')[1],
+                        style: TextStyle(
+                            fontSize: 16,
+                            color: Color(0XFF252E3D),
+                            fontWeight: FontWeight.w600,
+                            height: 1),
+                        textAlign: headerStyle.titleCentered
+                            ? TextAlign.center
+                            : TextAlign.start,
+                      ),
+                    ),
+                  )
+                ],
               ),
-            ),
+          // if (headerStyle.formatButtonVisible &&
+          //     availableCalendarFormats.length > 1)
+          //   Padding(
+          //     padding: const EdgeInsets.only(left: 8.0),
+          //     child: FormatButton(
+          //       onTap: onFormatButtonTap,
+          //       availableCalendarFormats: availableCalendarFormats,
+          //       calendarFormat: calendarFormat,
+          //       decoration: headerStyle.formatButtonDecoration,
+          //       padding: headerStyle.formatButtonPadding,
+          //       textStyle: headerStyle.formatButtonTextStyle,
+          //       showsNextFormat: headerStyle.formatButtonShowsNext,
+          //     ),
+          //   ),
           if (headerStyle.rightChevronVisible)
-            CustomIconButton(
-              icon: headerStyle.rightChevronIcon,
+            // CustomIconButton(
+            //   icon: headerStyle.rightChevronIcon,
+            //   onTap: onRightChevronTap,
+            //   margin: headerStyle.rightChevronMargin,
+            //   padding: headerStyle.rightChevronPadding,
+            // ),
+            InkWell(
               onTap: onRightChevronTap,
-              margin: headerStyle.rightChevronMargin,
-              padding: headerStyle.rightChevronPadding,
-            ),
+              child: Container(
+                  padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
+                  decoration: BoxDecoration(
+                    color: Color(0xffF4F5F5),
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  child: Text(
+                    String.fromCharCode(
+                        CupertinoIcons.chevron_forward.codePoint),
+                    style: TextStyle(
+                      inherit: false,
+                      color: Colors.black,
+                      fontSize: 16.0,
+                      fontWeight: FontWeight.w100,
+                      fontFamily: CupertinoIcons.chevron_back.fontFamily,
+                      package: CupertinoIcons.chevron_back.fontPackage,
+                    ),
+                  )),
+            )
         ],
       ),
     );
