@@ -66,23 +66,27 @@ class CalendarHeader extends StatelessWidget {
             InkWell(
               onTap: onLeftChevronTap,
               child: Container(
-                  padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
+                  padding: EdgeInsets.all(8),
                   decoration: BoxDecoration(
                     color: Color(0xffF4F5F5),
                     borderRadius: BorderRadius.circular(6),
                   ),
                   // padding: const EdgeInsets.all(16),
-                  child: Text(
-                    String.fromCharCode(CupertinoIcons.chevron_back.codePoint),
-                    style: TextStyle(
-                      inherit: false,
-                      color: Colors.black,
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.w100,
-                      fontFamily: CupertinoIcons.chevron_back.fontFamily,
-                      package: CupertinoIcons.chevron_back.fontPackage,
-                    ),
+                  child: Icon(
+                    Icons.chevron_left,
+                    size: 20,
                   )),
+              //  Text(
+              //   String.fromCharCode(CupertinoIcons.chevron_back.codePoint),
+              //   style: TextStyle(
+              //     inherit: false,
+              //     color: Colors.black,
+              //     fontSize: 16.0,
+              //     fontWeight: FontWeight.w100,
+              //     fontFamily: CupertinoIcons.chevron_back.fontFamily,
+              //     package: CupertinoIcons.chevron_back.fontPackage,
+              //   ),
+              // )
             ),
           headerTitleBuilder?.call(context, focusedMonth) ??
               Row(
@@ -156,26 +160,30 @@ class CalendarHeader extends StatelessWidget {
             //   padding: headerStyle.rightChevronPadding,
             // ),
             InkWell(
-              onTap: onRightChevronTap,
-              child: Container(
-                  padding: EdgeInsets.fromLTRB(15, 10, 15, 10),
-                  decoration: BoxDecoration(
-                    color: Color(0xffF4F5F5),
-                    borderRadius: BorderRadius.circular(6),
-                  ),
-                  child: Text(
-                    String.fromCharCode(
-                        CupertinoIcons.chevron_forward.codePoint),
-                    style: TextStyle(
-                      inherit: false,
-                      color: Colors.black,
-                      fontSize: 16.0,
-                      fontWeight: FontWeight.w100,
-                      fontFamily: CupertinoIcons.chevron_back.fontFamily,
-                      package: CupertinoIcons.chevron_back.fontPackage,
+                onTap: onRightChevronTap,
+                child: Container(
+                    padding: EdgeInsets.all(8),
+                    decoration: BoxDecoration(
+                      color: Color(0xffF4F5F5),
+                      borderRadius: BorderRadius.circular(6),
                     ),
-                  )),
-            )
+                    child: Icon(
+                      Icons.chevron_right,
+                      size: 20,
+                    ))
+                // Text(
+                //   String.fromCharCode(
+                //       CupertinoIcons.chevron_forward.codePoint),
+                //   style: TextStyle(
+                //     inherit: false,
+                //     color: Colors.black,
+                //     fontSize: 16.0,
+                //     fontWeight: FontWeight.w100,
+                //     fontFamily: CupertinoIcons.chevron_back.fontFamily,
+                //     package: CupertinoIcons.chevron_back.fontPackage,
+                //   ),
+                // )),
+                )
         ],
       ),
     );
