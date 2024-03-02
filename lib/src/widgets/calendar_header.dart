@@ -97,8 +97,7 @@ class CalendarHeader extends StatelessWidget {
                     onTap: onMonthTap,
                     // onLongPress: onHeaderLongPress,
                     child: Container(
-                      padding: EdgeInsets.fromLTRB(
-                          12, 10, isMonthYearDisabled == true ? 10 : 12, 10),
+                      padding: EdgeInsets.fromLTRB(12, 10, 12, 10),
                       decoration: BoxDecoration(
                           color: isMonthYearDisabled == true
                               ? Colors.white
@@ -118,14 +117,13 @@ class CalendarHeader extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    width: 4,
+                    width: isMonthYearDisabled == true ? 0 : 4,
                   ),
                   InkWell(
                     onTap: onYearTap,
                     // onLongPress: onHeaderLongPress,
                     child: Container(
-                      padding: EdgeInsets.fromLTRB(
-                          isMonthYearDisabled == true ? 0 : 12, 10, 12, 10),
+                      padding: EdgeInsets.fromLTRB(12, 10, 12, 10),
                       decoration: BoxDecoration(
                           color: isMonthYearDisabled == true
                               ? Colors.white
