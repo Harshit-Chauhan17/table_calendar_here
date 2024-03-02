@@ -210,6 +210,9 @@ class TableCalendar<T> extends StatefulWidget {
   /// Called when the calendar is created. Exposes its PageController.
   final void Function(PageController pageController)? onCalendarCreated;
 
+  // param for checking if the month and year picker needs to be disabled or not.
+  final bool? isMonthYearDisabled;
+
   /// Creates a `TableCalendar` widget.
   TableCalendar({
     Key? key,
@@ -267,6 +270,7 @@ class TableCalendar<T> extends StatefulWidget {
     this.onYearTapped,
     this.onPageChanged,
     this.onFormatChanged,
+    this.isMonthYearDisabled = false,
     this.onCalendarCreated,
   })  : assert(availableCalendarFormats.keys.contains(calendarFormat)),
         assert(availableCalendarFormats.length <= CalendarFormat.values.length),
@@ -475,6 +479,7 @@ class _TableCalendarState<T> extends State<TableCalendar<T>> {
                 availableCalendarFormats: widget.availableCalendarFormats,
                 calendarFormat: widget.calendarFormat,
                 locale: widget.locale,
+                isMonthYearDisabled: widget.isMonthYearDisabled,
                 onFormatButtonTap: (format) {
                   assert(
                     widget.onFormatChanged != null,
