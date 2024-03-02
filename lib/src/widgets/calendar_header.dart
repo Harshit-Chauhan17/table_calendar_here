@@ -25,6 +25,7 @@ class CalendarHeader extends StatelessWidget {
   final DayBuilder? headerTitleBuilder;
   final VoidCallback? onMonthTap;
   final VoidCallback? onYearTap;
+  final bool? isMonthYearDisabled;
 
   const CalendarHeader({
     Key? key,
@@ -41,6 +42,7 @@ class CalendarHeader extends StatelessWidget {
     this.headerTitleBuilder,
     this.onMonthTap,
     this.onYearTap,
+    this.isMonthYearDisabled = false,
   }) : super(key: key);
 
   @override
@@ -97,7 +99,9 @@ class CalendarHeader extends StatelessWidget {
                     child: Container(
                       padding: EdgeInsets.fromLTRB(12, 10, 12, 10),
                       decoration: BoxDecoration(
-                          color: Color(0xffF4F5F5),
+                          color: isMonthYearDisabled == true
+                              ? Colors.white
+                              : Color(0xffF4F5F5),
                           borderRadius: BorderRadius.circular(6)),
                       child: Text(
                         text.split(' ')[0],
@@ -121,7 +125,9 @@ class CalendarHeader extends StatelessWidget {
                     child: Container(
                       padding: EdgeInsets.fromLTRB(12, 10, 12, 10),
                       decoration: BoxDecoration(
-                          color: Color(0xffF4F5F5),
+                          color: isMonthYearDisabled == true
+                              ? Colors.white
+                              : Color(0xffF4F5F5),
                           borderRadius: BorderRadius.circular(6)),
                       child: Text(
                         text.split(' ')[1],
